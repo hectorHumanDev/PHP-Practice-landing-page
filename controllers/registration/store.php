@@ -35,15 +35,13 @@ if ($user) {
     //if no, save to db, log user in, and redirect to dashboard 
     $user = $db->query('insert into users(email, password) VALUES(:email, :password)', ['email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT)]);
 
-    $_SESSION['user'] = [
-        'email' => $email,
-        'name' => $name
-    ];
+    login($user);
+
     header('location: /');
-    die();
+    exit();
 }
 
 
 
 
-//view('registration/create.view.php');
+// view('registration/create.view.php');
