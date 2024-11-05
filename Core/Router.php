@@ -52,17 +52,17 @@ class Router
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
                 //apply middleware 
-                if ($route['middleware']) {
-                    $middleware = Middleware::MAP[$route['middleware']];
-                    (new $middleware)->handle();
-                }
 
-                return require base_path($route['controller']);
+                Middleware::resolve($route['middleware']);
+
+                return require base_path('Http/controllers/' . $route['controller']);
             }
 
         }
+
         $this->abort();
     }
+
     protected function abort($code = 404)
     {
         http_response_code($code);

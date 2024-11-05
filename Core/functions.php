@@ -50,7 +50,7 @@ function login($user)
 
 function logout()
 {
-    $_SESSION['user'] = [];
+    $_SESSION = [];
 
     session_destroy();
 

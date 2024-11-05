@@ -5,7 +5,7 @@ use Core\Database;
 
 $db = App::container()->resolve(Database::class);
 
-$currentUserId = 1;
+$currentUserId = $db->query('SELECT user_id FROM users WHERE email = :email', params: ['email' => $_SESSION['email']])->findOrFail();
 
 
 
